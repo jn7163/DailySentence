@@ -8,13 +8,12 @@ from aqt.studydeck import StudyDeck
 from ..Helpers.Importer import ImportToAnki
 from .BBC import _phrase_getter
 from .Bing import BingDict
-from ..Helpers import user_files, TemplatePackage
-
+from ..settings import settings
 
 class Service(QObject):
     def __init__(self, parent):
         super(Service, self).__init__(parent)
-        self.today_phrase_file = os.path.join(self._ensureExists(user_files), "{}.txt".format(uuid4().hex))
+        self.today_phrase_file = os.path.join(settings.user_files_folder, "{}.txt".format(uuid4().hex))
         self.check_first_time_run()
 
     def _ensureExists(self, path):
@@ -25,7 +24,7 @@ class Service(QObject):
     def check_first_time_run(self):
         is_first_time_run = mw.pm.profile.get('FirstTimeRun', True)
         if is_first_time_run:
-            importFile(mw, TemplatePackage)
+            importFile(mw, settings.deck_template_file)
             mw.pm.profile['FirstTimeRun'] = False
 
     def start_progress(self, label=''):
@@ -42,7 +41,7 @@ class Service(QObject):
     def ImportBingSentence(self):
         bing = BingDict()
 
-        text_file = os.path.join(self._ensureExists(user_files), "{}.txt".format(uuid4().hex))
+        text_file = os.path.join(self._ensureExists(settings.user_files_folder), "{}.txt".format(uuid4().hex))
         empty = True
 
         self.start_progress("获取Bing每日一句数据 ...")
@@ -77,7 +76,7 @@ class Service(QObject):
 
         # write to text
 
-        phrase_file = os.path.join(self._ensureExists(user_files), "{}.txt".format(uuid4().hex))
+        phrase_file = os.path.join(self._ensureExists(settings.user_files_folder), "{}.txt".format(uuid4().hex))
         empty = True
         with open(phrase_file, "w", encoding='utf-8') as f:
             for thr in thrs:
