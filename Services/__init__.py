@@ -10,6 +10,7 @@ from .BBC import _phrase_getter
 from .Bing import BingDict
 from ..settings import settings
 
+
 class Service(QObject):
     def __init__(self, parent):
         super(Service, self).__init__(parent)
@@ -54,7 +55,7 @@ class Service(QObject):
         self.finish_progress()
         if not empty:
             mw.progress.finish()
-            ImportToAnki("Bing - 每日一句", self.import_deck_name, file=text_file)
+            ImportToAnki("Bing - 每日一句", self.import_deck_name, file=text_file, first="日期")
             # importFile(mw, text_file)
         else:
             QMessageBox.information(mw, 'Bing每日一句', "没有数据.")
@@ -85,7 +86,7 @@ class Service(QObject):
                     empty = False
         if not empty:
             mw.progress.finish()
-            ImportToAnki("BBC - 今日短语", self.import_deck_name, file=phrase_file)
+            ImportToAnki("BBC - 今日短语", self.import_deck_name, file=phrase_file, first="短语")
         else:
             QMessageBox.information(mw, 'BBC每日短语', "没有数据.")
 

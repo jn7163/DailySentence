@@ -28,8 +28,8 @@ class ActionMenu(QMenu):
         self.action_clear_cache.triggered.connect(self.on_reset_all)
 
     def _clear_user_files(self):
-        from .Helpers import user_files
-        shutil.rmtree(user_files, True)
+        from .settings import settings
+        shutil.rmtree(settings.deck_template_file, True)
 
     def on_get_bbc_todays_phrase(self):
         from .Services import Service
