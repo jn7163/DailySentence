@@ -1,0 +1,6 @@
+{
+  "download_on_startup_bing_daily_sentence": true,
+  "download_on_startup_bbc_todays_phrase": true,
+  "DailySentenceMax": 10,
+  "TodaysPhraseRecentDays": 10
+}
