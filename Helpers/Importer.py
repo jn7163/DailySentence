@@ -33,8 +33,8 @@ def ImportToAnki(model_name, import_to_deck, *args, **kwargs):
     importer.model = model
 
     did = mw.col.decks.id(import_to_deck)
+    importer.model['did'] = did
     mw.col.conf['curDeck'] = did
-
     mw.col.decks.select(did)
     importer.mapping = [kwargs.get("first")]
     importer.run()
